@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="CINEPHILE - Discover movies from around the world. Search by title, director, actor, or music director. Filter by genre, language, and more.">
+    <title>CINEPHILE | Global Movie Discovery Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🎬</span>
+                    <h1 class="logo-text">CINEPHILE</h1>
+                </div>
+                <p class="tagline">Discover 10,000+ Movies From Around The World</p>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" class="search-input"
+                    placeholder="Search movies, directors, actors, music directors..." autocomplete="off">
+                <button class="search-clear hidden" id="search-clear" aria-label="Clear search">×</button>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <!-- Genre Filters -->
+                <div class="filter-group">
+                    <h2 class="filter-title">
+                        <span class="filter-icon">🎭</span>
+                        Genres
+                    </h2>
+                    <div class="filter-chips" id="genre-filters">
+                        <button class="chip active" data-genre="all">All Genres</button>
+                        <button class="chip" data-genre="action">Action</button>
+                        <button class="chip" data-genre="drama">Drama</button>
+                        <button class="chip" data-genre="romance">Romance</button>
+                        <button class="chip" data-genre="comedy">Comedy</button>
+                        <button class="chip" data-genre="thriller">Thriller</button>
+                        <button class="chip" data-genre="sci-fi">Sci-Fi</button>
+                        <button class="chip" data-genre="fantasy">Fantasy</button>
+                        <button class="chip" data-genre="horror">Horror</button>
+                        <button class="chip" data-genre="animation">Animation</button>
+                        <button class="chip" data-genre="documentary">Documentary</button>
+                        <button class="chip" data-genre="crime">Crime</button>
+                        <button class="chip" data-genre="mystery">Mystery</button>
+                        <button class="chip" data-genre="adventure">Adventure</button>
+                    </div>
+                </div>
+
+                <!-- Language Filters -->
+                <div class="filter-group">
+                    <h2 class="filter-title">
+                        <span class="filter-icon">🌍</span>
+                        Languages
+                    </h2>
+                    <div class="filter-chips" id="language-filters">
+                        <button class="chip active" data-language="all">All Languages</button>
+                        <button class="chip" data-language="english">English</button>
+                        <button class="chip" data-language="hindi">Hindi</button>
+                        <button class="chip" data-language="tamil">Tamil</button>
+                        <button class="chip" data-language="telugu">Telugu</button>
+                        <button class="chip" data-language="malayalam">Malayalam</button>
+                        <button class="chip" data-language="kannada">Kannada</button>
+                        <button class="chip" data-language="korean">Korean</button>
+                        <button class="chip" data-language="japanese">Japanese</button>
+                        <button class="chip" data-language="french">French</button>
+                        <button class="chip" data-language="spanish">Spanish</button>
+                        <button class="chip" data-language="german">German</button>
+                    </div>
+                </div>
+
+                <!-- Advanced Filters Row -->
+                <div class="advanced-filters">
+                    <div class="dropdown-filter">
+                        <label for="director-filter">Director</label>
+                        <select id="director-filter" class="filter-select">
+                            <option value="all">All Directors</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-filter">
+                        <label for="actor-filter">Actor</label>
+                        <select id="actor-filter" class="filter-select">
+                            <option value="all">All Actors</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-filter">
+                        <label for="music-filter">Music Director</label>
+                        <select id="music-filter" class="filter-select">
+                            <option value="all">All Music Directors</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-filter">
+                        <label for="year-filter">Year</label>
+                        <select id="year-filter" class="filter-select">
+                            <option value="all">All Years</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Filters & Results Count -->
+            <section class="results-info">
+                <div class="active-filters" id="active-filters">
+                    <!-- Active filter tags will be inserted here -->
+                </div>
+                <div class="results-count">
+                    <span id="movie-count">0</span> movies found
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-container hidden" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading movies...</p>
+            </div>
+
+            <!-- Movies Grid -->
+            <section class="movies-grid" id="movies-grid">
+                <!-- Movie cards will be inserted here -->
+            </section>
+
+            <!-- Load More Button -->
+            <div class="load-more-container hidden" id="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">
+                    Load More Movies
+                    <span class="load-more-count" id="load-more-count"></span>
+                </button>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results hidden" id="no-results">
+                <div class="no-results-content">
+                    <span class="no-results-icon">🎬</span>
+                    <h3>No movies found</h3>
+                    <p>Try adjusting your filters or search query to discover more movies</p>
+                    <button class="reset-filters-btn" id="reset-filters">Reset All Filters</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 CINEPHILE | Discover Global Cinema</p>
+        </footer>
+    </div>
+
+    <!-- Movie Details Modal -->
+    <div class="modal-overlay hidden" id="movie-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Close modal">×</button>
+            <div class="modal-body">
+                <div class="modal-poster-container">
+                    <img src="" alt="Movie Poster" id="modal-poster" class="modal-poster">
+                </div>
+                <div class="modal-info">
+                    <h2 class="modal-title" id="modal-title">Movie Title</h2>
+                    <div class="modal-meta">
+                        <span id="modal-year">2024</span>
+                        <span class="dot">•</span>
+                        <span id="modal-language">Language</span>
+                        <span class="dot">•</span>
+                        <span id="modal-rating" class="modal-rating">8.5</span>
+                    </div>
+                    <div class="modal-tags" id="modal-genres">
+                        <!-- Genres will be inserted here -->
+                    </div>
+
+                    <div class="modal-crew-grid">
+                        <div class="crew-item">
+                            <span class="label">Director</span>
+                            <span class="value" id="modal-director">Director Name</span>
+                        </div>
+                        <div class="crew-item">
+                            <span class="label">Music</span>
+                            <span class="value" id="modal-music">Music Director</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Cast</h3>
+                        <p id="modal-cast" class="modal-text">Actor 1, Actor 2...</p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Synopsis</h3>
+                        <p id="modal-summary" class="modal-text">Movie summary goes here...</p>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a href="#" target="_blank" id="modal-trailer-btn" class="trailer-btn">
+                            <span class="play-icon">▶</span> Watch Trailer on YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/movies-database.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
